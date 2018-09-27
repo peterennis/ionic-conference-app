@@ -29,21 +29,19 @@ export class TutorialPage {
   }
 
   onSlideChangeStart(event) {
-    this.showSkip = !event.target.isEnd();
+    event.target.isEnd().then(isEnd => {
+      this.showSkip = !isEnd;
+    });
   }
 
   ionViewWillEnter() {
     this.storage.get('ion_did_tutorial').then(res => {
-      if (res) {
+      if (res === true) {
         this.router.navigateByUrl('/app/tabs/(schedule:schedule)');
       }
     });
 
     this.menu.enable(false);
-  }
-
-  ionViewDidEnter() {
-    this.slides.update();
   }
 
   ionViewDidLeave() {
